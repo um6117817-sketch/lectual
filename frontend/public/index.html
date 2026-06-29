@@ -1,0 +1,142 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Todo App</title>
+  <link rel="stylesheet" href="/style.css">
+</head>
+<body>
+  <div class="container">
+    <!-- Header -->
+    <header class="app-header">
+      <h1>📝 Todo App</h1>
+    </header>
+
+    <!-- Create Form -->
+    <section class="create-section">
+      <h2>创建新事项</h2>
+      <form id="create-form">
+        <div class="form-group">
+          <label for="title-input">标题 <span class="required">*</span></label>
+          <input type="text" id="title-input" placeholder="输入待办事项标题..." maxlength="200" required>
+        </div>
+        <div class="form-group">
+          <label for="desc-input">描述</label>
+          <textarea id="desc-input" placeholder="输入描述（可选）..." maxlength="2000" rows="3"></textarea>
+        </div>
+        <div class="form-row">
+          <div class="form-group">
+            <label for="priority-select">优先级</label>
+            <select id="priority-select">
+              <option value="medium">中</option>
+              <option value="high">高</option>
+              <option value="low">低</option>
+            </select>
+          </div>
+          <div class="form-group">
+            <label for="status-select">状态</label>
+            <select id="status-select">
+              <option value="todo">待办</option>
+              <option value="in_progress">进行中</option>
+              <option value="done">已完成</option>
+            </select>
+          </div>
+        </div>
+        <button type="submit" class="btn btn-primary" id="submit-btn">➕ 创建事项</button>
+      </form>
+      <div id="create-error" class="error-message hidden"></div>
+    </section>
+
+    <!-- Todo List -->
+    <section class="list-section">
+      <div class="list-header">
+        <h2>事项列表</h2>
+        <div class="filters">
+          <select id="filter-status">
+            <option value="">全部状态</option>
+            <option value="todo">待办</option>
+            <option value="in_progress">进行中</option>
+            <option value="done">已完成</option>
+          </select>
+          <select id="filter-priority">
+            <option value="">全部优先级</option>
+            <option value="high">高</option>
+            <option value="medium">中</option>
+            <option value="low">低</option>
+          </select>
+        </div>
+      </div>
+
+      <div id="todo-list" class="todo-list">
+        <!-- Todo cards rendered here -->
+      </div>
+
+      <div id="empty-state" class="empty-state hidden">
+        <p>🎉 暂无待办事项，创建一个吧！</p>
+      </div>
+
+      <div id="loading-state" class="loading-state">
+        <p>加载中...</p>
+      </div>
+
+      <div id="error-state" class="error-state hidden">
+        <p>❌ 加载失败，请检查后端服务是否运行。</p>
+      </div>
+
+      <!-- Pagination -->
+      <div id="pagination" class="pagination hidden">
+        <button id="prev-page" class="btn btn-secondary" disabled>上一页</button>
+        <span id="page-info">第 1 页 / 共 1 页</span>
+        <button id="next-page" class="btn btn-secondary" disabled>下一页</button>
+      </div>
+    </section>
+  </div>
+
+  <!-- Edit Modal -->
+  <div id="edit-modal" class="modal hidden">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h2>编辑事项</h2>
+        <button id="close-modal" class="btn-close">&times;</button>
+      </div>
+      <form id="edit-form">
+        <input type="hidden" id="edit-id">
+        <div class="form-group">
+          <label for="edit-title">标题 <span class="required">*</span></label>
+          <input type="text" id="edit-title" maxlength="200" required>
+        </div>
+        <div class="form-group">
+          <label for="edit-desc">描述</label>
+          <textarea id="edit-desc" maxlength="2000" rows="3"></textarea>
+        </div>
+        <div class="form-row">
+          <div class="form-group">
+            <label for="edit-priority">优先级</label>
+            <select id="edit-priority">
+              <option value="low">低</option>
+              <option value="medium">中</option>
+              <option value="high">高</option>
+            </select>
+          </div>
+          <div class="form-group">
+            <label for="edit-status">状态</label>
+            <select id="edit-status">
+              <option value="todo">待办</option>
+              <option value="in_progress">进行中</option>
+              <option value="done">已完成</option>
+            </select>
+          </div>
+        </div>
+        <div class="modal-actions">
+          <button type="submit" class="btn btn-primary">💾 保存</button>
+          <button type="button" class="btn btn-secondary" id="cancel-edit">取消</button>
+        </div>
+      </form>
+      <div id="edit-error" class="error-message hidden"></div>
+    </div>
+  </div>
+
+  <script src="/app.js"></script>
+</body>
+</html>
